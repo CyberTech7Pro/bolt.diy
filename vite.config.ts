@@ -11,7 +11,7 @@ export default defineConfig({
     hmr: {
       host: 'bolt.ianeuralinker.com',
       protocol: 'wss',
-      port: 443
+      clientPort: 443            // <<< usar clientPort ao invés de port
     }
   }
 });
