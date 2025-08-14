@@ -10,6 +10,11 @@ export default defineConfig({
   plugins: [
     // o UnoCSS cria o módulo virtual: 'virtual:uno.css'
     UnoCSS(),
+    import UnoCSS from 'unocss/vite';
+export default defineConfig({
+  plugins: [UnoCSS(), remix()],
+  // ... resto igual ao que já definimos antes
+});
     remix(),
   ],
   resolve: {
