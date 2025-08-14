@@ -1,12 +1,17 @@
 import { defineConfig } from 'vite';
 import { vitePlugin as remix } from '@remix-run/dev';
+import UnoCSS from 'unocss/vite';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  plugins: [remix()],
+  plugins: [
+    // o UnoCSS cria o módulo virtual: 'virtual:uno.css'
+    UnoCSS(),
+    remix(),
+  ],
   resolve: {
     alias: {
       '~': resolve(__dirname, 'app'),
@@ -20,10 +25,6 @@ export default defineConfig({
     port: 5173,
     strictPort: true,
     allowedHosts: ['bolt.ianeuralinker.com'],
-    hmr: {
-      protocol: 'wss',
-      host: 'bolt.ianeuralinker.com',
-      clientPort: 443,
-    },
+    hmr: { protocol: 'wss', host: 'bolt.ianeuralinker.com', clientPort: 443 },
   },
 });
