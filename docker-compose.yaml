@@ -2,6 +2,14 @@ version: "3.9"
 
 services:
   app:
+    app-prod:
+    # ... (igual ao seu)
+    profiles: ["default", "production"]
+
+  app-dev:
+    # ... (igual ao seu)
+    profiles: ["development"]   # <-- remova "default" daqui
+    
     build:
       context: .
       dockerfile: Dockerfile
