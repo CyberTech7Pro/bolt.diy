@@ -5,25 +5,22 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: bolt-ai-production           # usa a stage de produção do seu Dockerfile
-      args:
-        VITE_LOG_LEVEL: info
-    image: bolt-ai:production
-    command: ["pnpm","run","dockerstart"]  # conforme o CMD da stage de produção
-    ports:
-      - "5173:5173"                        # a imagem expõe 5173; mantenha
-    env_file: .env.local                   # variáveis sensíveis
+      target: bolt-ai-development
+    image: bolt-ai:development
+    command: ["pnpm","run","dev","--","--host","0.0.0.0","--port","5173"]
     environment:
-      NODE_ENV: "production"
+      NODE_ENV: "development"
+      HOST: "0.0.0.0"
       PORT: "5173"
       RUNNING_IN_DOCKER: "true"
-      DEFAULT_NUM_CTX: "${DEFAULT_NUM_CTX:-32768}"
+      VITE_LOG_LEVEL: "${VITE_LOG_LEVEL:-debug}"
 
-      # URLs públicas (alguns forks/rotas usam isso)
-      NEXT_PUBLIC_BASE_URL: "https://bolt.ianeuralinker.com"
-      NEXTAUTH_URL: "https://bolt.ianeuralinker.com"
+      # HMR via HTTPS por trás do Traefik
+      VITE_HMR_PROTOCOL: "wss"
+      VITE_HMR_HOST: "bolt.ianeuralinker.com"
+      VITE_HMR_PORT: "443"
 
-      # Provedores de LLM (preencha no .env.local ou direto aqui)
+      # chaves (se exigidas já em dev)
       GROQ_API_KEY: "${GROQ_API_KEY}"
       HuggingFace_API_KEY: "${HuggingFace_API_KEY}"
       OPENAI_API_KEY: "${OPENAI_API_KEY}"
@@ -36,11 +33,11 @@ services:
       TOGETHER_API_BASE_URL: "${TOGETHER_API_BASE_URL}"
       AWS_BEDROCK_CONFIG: "${AWS_BEDROCK_CONFIG}"
 
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    # publicar a porta ajuda nos testes locais; Traefik não exige
+    ports:
+      - "5173:5173"
 
-    restart: unless-stopped
-
+    # healthcheck para o Traefik só rotear quando o app responder
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:5173/ || exit 1"]
       interval: 10s
@@ -48,5 +45,7 @@ services:
       retries: 12
       start_period: 20s
 
-      retries: 12
-      start_period: 20s
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+    restart: unless-stopped
