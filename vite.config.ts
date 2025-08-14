@@ -1,3 +1,12 @@
+server: {
+  host: '0.0.0.0',
+  port: 5173,
+  strictPort: true,
+  allowedHosts: ['bolt.ianeuralinker.com'],
+  hmr: { host: 'bolt.ianeuralinker.com', protocol: 'wss', port: 443 }
+}
+
+
 import { cloudflareDevProxyVitePlugin as remixCloudflareDevProxy, vitePlugin as remixVitePlugin } from '@remix-run/dev';
 import UnoCSS from 'unocss/vite';
 import { defineConfig, type ViteDevServer } from 'vite';
