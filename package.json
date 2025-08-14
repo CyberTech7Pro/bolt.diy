@@ -9,10 +9,6 @@
   "author": {
     "name": "bolt.diy team",
     "email": "maintainers@bolt.diy"
-    "devDependencies": {
-  "unocss": "^0.61.2",
-  "@iconify-json/ph": "^1.1.24",
-  "@iconify-json/simple-icons": "^1.1.77"
   },
   "scripts": {
     "deploy": "npm run build && wrangler pages deploy",
@@ -166,6 +162,7 @@
     "@cloudflare/workers-types": "^4.20241127.0",
     "@electron/notarize": "^2.5.0",
     "@iconify-json/ph": "^1.2.1",
+    "@iconify-json/simple-icons": "^1.1.77",
     "@iconify/types": "^2.0.0",
     "@remix-run/dev": "^2.15.2",
     "@remix-run/serve": "^2.15.2",
