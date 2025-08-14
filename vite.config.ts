@@ -1,11 +1,11 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { vitePlugin as remix } from '@remix-run/dev'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import UnoCSS from 'unocss/vite'
 
-export default defineConfig(() => ({
+export default defineConfig({
   plugins: [
-    react(),
+    remix(),          // ✅ plugin obrigatório do Remix
     tsconfigPaths(),
     UnoCSS()
   ],
@@ -24,4 +24,4 @@ export default defineConfig(() => ({
     host: true,
     port: 5173
   }
-}))
+})
