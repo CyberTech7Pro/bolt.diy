@@ -4,29 +4,21 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 import UnoCSS from 'unocss/vite'
 import { vitePlugin as remix } from '@remix-run/dev'
 
-// ⚠️ Não use hmr.port=443 (isso tenta ligar servidor na 443).
-// Use APENAS clientPort para o cliente HMR atrás de proxy HTTPS.
-
 export default defineConfig({
-  plugins: [
-    react(),
-    tsconfigPaths(),
-    UnoCSS(),
-    remix()
-  ],
+  plugins: [react(), tsconfigPaths(), UnoCSS(), remix()],
   server: {
     host: true,
     port: 5173,
     strictPort: true,
+    // diz ao Vite qual é o origin público por trás do proxy
+    origin: 'https://bolt.ianeuralinker.com',
     allowedHosts: ['bolt.ianeuralinker.com'],
     hmr: {
-      protocol: 'wss',                   
-      host: 'bolt.ianeuralinker.com',     
-      clientPort: 443                     
+      protocol: 'wss',
+      host: 'bolt.ianeuralinker.com',
+      clientPort: 443
+      // NÃO defina "port" aqui
     }
   },
-  preview: {
-    host: true,
-    port: 5173
-  }
+  preview: { host: true, port: 5173 }
 })
