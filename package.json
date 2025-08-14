@@ -1,12 +1,4 @@
 {
-"devDependencies": {
-  "unocss": "^0.61.2",
-  "@iconify-json/ph": "^1.1.24",
-  "@iconify-json/simple-icons": "^1.1.77"
-  
-}
-
-{
   "name": "bolt",
   "description": "An AI Agent",
   "private": true,
@@ -17,6 +9,10 @@
   "author": {
     "name": "bolt.diy team",
     "email": "maintainers@bolt.diy"
+    "devDependencies": {
+  "unocss": "^0.61.2",
+  "@iconify-json/ph": "^1.1.24",
+  "@iconify-json/simple-icons": "^1.1.77"
   },
   "scripts": {
     "deploy": "npm run build && wrangler pages deploy",
