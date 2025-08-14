@@ -8,10 +8,10 @@ export default defineConfig({
     port: 5173,
     strictPort: true,
     allowedHosts: ['bolt.ianeuralinker.com'],
-    hmr: {
-      host: 'bolt.ianeuralinker.com',
-      protocol: 'wss',
-      clientPort: 443            // <<< usar clientPort ao invés de port
+   // hmr: {
+   //   host: 'bolt.ianeuralinker.com',
+   //   protocol: 'wss',
+   //   clientPort: 443            // <<< usar clientPort ao invés de port
     }
   }
 });
