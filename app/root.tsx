@@ -1,3 +1,6 @@
+import '@unocss/reset/tailwind.css'   // reset opcional, deixa tipografia/inputs decentes
+import 'virtual:uno.css'              // **ESSENCIAL**: injeta o CSS gerado pelo UnoCSS
+
 import type { LinksFunction, MetaFunction } from '@remix-run/node'
 import {
   Links,
