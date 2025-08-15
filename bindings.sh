@@ -1,33 +1,27 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -e
 
-bindings=""
+# Adiciona um binding somente se a variável existir no ambiente do container
+add() { [ -n "${!1}" ] && printf ' --binding %s=%q' "$1" "${!1}"; }
 
-# Function to extract variable names from the TypeScript interface
-extract_env_vars() {
-  grep -o '[A-Z_]\+:' worker-configuration.d.ts | sed 's/://'
-}
+# LLMs
+add OPENAI_API_KEY
+add GROQ_API_KEY
+add ANTHROPIC_API_KEY
+add OPEN_ROUTER_API_KEY
+add GOOGLE_GENERATIVE_AI_API_KEY
+add XAI_API_KEY
+add TOGETHER_API_KEY
+add TOGETHER_API_BASE_URL
+add AWS_BEDROCK_CONFIG
 
-# First try to read from .env.local if it exists
-if [ -f ".env.local" ]; then
-  while IFS= read -r line || [ -n "$line" ]; do
-    if [[ ! "$line" =~ ^# ]] && [[ -n "$line" ]]; then
-      name=$(echo "$line" | cut -d '=' -f 1)
-      value=$(echo "$line" | cut -d '=' -f 2-)
-      value=$(echo $value | sed 's/^"\(.*\)"$/\1/')
-      bindings+="--binding ${name}=${value} "
-    fi
-  done < .env.local
-else
-  # If .env.local doesn't exist, use environment variables defined in .d.ts
-  env_vars=($(extract_env_vars))
-  # Generate bindings for each environment variable if it exists
-  for var in "${env_vars[@]}"; do
-    if [ -n "${!var}" ]; then
-      bindings+="--binding ${var}=${!var} "
-    fi
-  done
-fi
+# Ollama
+add OLLAMA_API_BASE_URL
 
-bindings=$(echo $bindings | sed 's/[[:space:]]*$//')
+# Outros úteis
+add VITE_LOG_LEVEL
+add DEFAULT_NUM_CTX
+add WRANGLER_SEND_METRICS
 
-echo $bindings
+# imprime os flags para o wrangler
+echo
