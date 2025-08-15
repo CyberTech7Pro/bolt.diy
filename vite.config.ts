@@ -13,12 +13,7 @@ export default defineConfig({
     // diz ao Vite qual é o origin público por trás do proxy
     origin: 'https://bolt.ianeuralinker.com',
     allowedHosts: ['bolt.ianeuralinker.com'],
-    hmr: {
-      protocol: 'wss',
-      host: 'bolt.ianeuralinker.com',
-      clientPort: 443
-      // NÃO defina "port" aqui
-    }
+    hmr: false
   },
   preview: { host: true, port: 5173 }
 })
