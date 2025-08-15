@@ -1,4 +1,3 @@
-// app/entry.client.tsx
 import { StrictMode, startTransition } from 'react'
 import { hydrateRoot } from 'react-dom/client'
 import { RemixBrowser } from '@remix-run/react'
@@ -14,7 +13,6 @@ function render() {
       )
     })
   } catch (e) {
-    // Mostra o erro na tela para facilitar o debug de "tela branca"
     const pre = document.createElement('pre')
     pre.style.cssText =
       'white-space:pre-wrap;padding:16px;background:#200;color:#f88;' +
