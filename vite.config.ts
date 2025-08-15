@@ -2,18 +2,24 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import UnoCSS from 'unocss/vite'
-import { vitePlugin as remix } from '@remix-run/dev'
+import { vitePlugin as remix } from '@remix-run/dev' // Remix + Vite
 
-export default defineConfig({
-  plugins: [react(), tsconfigPaths(), UnoCSS(), remix()],
+export default defineConfig(() => ({
+  plugins: [
+    remix(),
+    react(),
+    tsconfigPaths(),
+    UnoCSS()
+  ],
   server: {
     host: true,
     port: 5173,
     strictPort: true,
-    // diz ao Vite qual é o origin público por trás do proxy
-    origin: 'https://bolt.ianeuralinker.com',
     allowedHosts: ['bolt.ianeuralinker.com'],
-    hmr: false
+    // NÃO force HMR via wss:443 aqui; deixe Vite decidir via proxy do Coolify
   },
-  preview: { host: true, port: 5173 }
-})
+  preview: {
+    host: true,
+    port: 5173
+  }
+}))
